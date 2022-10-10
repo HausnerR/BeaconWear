@@ -1,126 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.wear.widget.BoxInsetLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:deviceIds="wear"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".MainActivity"
+    tools:deviceIds="wear">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        tools:context=".MainActivity"
         app:layout_boxedEdges="all"
-        android:gravity="center">
+        tools:context=".MainActivity">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/txpwr"
+            android:text="BeaconWear"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:labelFor="@+id/uuid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="ID"/>
-            <EditText
-                android:id="@+id/uuid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="8sp"
-                android:importantForAutofill="no"
-                android:digits="0123456789ABCDEF-"
-                android:inputType="textCapCharacters|textNoSuggestions"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:labelFor="@+id/major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Maj"/>
-            <EditText
-                android:id="@+id/major"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:labelFor="@+id/minor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Min"/>
-            <EditText
-                android:id="@+id/minor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:labelFor="@+id/freq"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Freq"/>
-            <Spinner
-                android:id="@+id/freq"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"/>
-            <TextView
-                android:labelFor="@+id/mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mode"
-                android:gravity="right"/>
-            <Spinner
-                android:id="@+id/mode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="right"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:labelFor="@+id/txpwr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TX Pwr"/>
-            <EditText
-                android:id="@+id/txpwr"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no"
-                android:inputType="numberSigned"
-                android:layout_weight="2"/>
-            <Button
-                android:id="@+id/broadcastButton"
-                android:text="Start"
-                android:onClick="broadcastButtonTapped"
-                android:textSize="11sp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"/>
-        </LinearLayout>
+            android:gravity="center_horizontal"
+            android:labelFor="@+id/txpwr"
+            android:paddingTop="10dp"
+            android:text="This application works in background"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

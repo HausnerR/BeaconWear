@@ -66,8 +66,8 @@ class BeaconReferenceApplication: Application(), MonitorNotifier {
 
         // This code block starts beacon transmission
         val beacon = Beacon.Builder()
-            .setId1("3260e3c0-3532-3d6b-5f9c-075948043c3e")
-            .setId2("64")
+            .setId1("144978bb-4ba1-438b-bdb1-062fead53c18")
+            .setId2("100")
             .setId3("1")
             .setManufacturer(0x004c)
             .setTxPower(-59)
@@ -75,23 +75,13 @@ class BeaconReferenceApplication: Application(), MonitorNotifier {
             .build()
 
         // Change the layout below for other beacon types
-        val beaconParser = BeaconParser()
-            .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24")
+        val beaconParser = BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24")
 
-        val advertisingBytes: ByteArray = beaconParser.getBeaconAdvertisementData(beacon)
-        var byteString = ""
-        for (i in advertisingBytes.indices) {
-            byteString += String.format("%02X", advertisingBytes[i])
-            byteString += " "
-        }
-        Log.d(
-            TAG,
-            "Starting advertising with ID1: " + beacon.id1 + "and data: " + byteString + " of size " + advertisingBytes.size)
-
+        Log.d(TAG, "Starting advertising with UUID: " + beacon.id1 + ", major: " + beacon.id2 + ", minor: " + beacon.id3)
 
         val beaconTransmitter = BeaconTransmitter(applicationContext, beaconParser)
-        beaconTransmitter.advertiseTxPowerLevel = AdvertiseSettings.ADVERTISE_TX_POWER_ULTRA_LOW
-        beaconTransmitter.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_LOW_POWER
+        beaconTransmitter.advertiseTxPowerLevel = AdvertiseSettings.ADVERTISE_TX_POWER_HIGH
+        beaconTransmitter.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_BALANCED
         beaconTransmitter.startAdvertising(beacon, object : AdvertiseCallback() {
             override fun onStartFailure(errorCode: Int) {
                 Log.e(TAG, "Advertisement start failed with code: $errorCode")
@@ -104,26 +94,21 @@ class BeaconReferenceApplication: Application(), MonitorNotifier {
     }
 
     private fun setupForegroundService() {
-        val builder = Notification.Builder(this, "BeaconReferenceApp")
+        val builder = Notification.Builder(this, "BeaconWearApp")
         builder.setSmallIcon(R.drawable.ic_launcher_background)
-        builder.setContentTitle("Scanning for Beacons")
+        builder.setContentTitle("Beacon transmitting")
         val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT + PendingIntent.FLAG_IMMUTABLE
-        )
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT + PendingIntent.FLAG_IMMUTABLE)
         builder.setContentIntent(pendingIntent)
-        val channel =  NotificationChannel("beacon-ref-notification-id",
-            "My Notification Name", NotificationManager.IMPORTANCE_DEFAULT)
-        channel.description = "My Notification Channel Description"
-        val notificationManager =  getSystemService(
-                Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel =  NotificationChannel("beacon-wear-notification-channel", "BeaconWear", NotificationManager.IMPORTANCE_DEFAULT)
+        val notificationManager =  getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
         builder.setChannelId(channel.id)
         BeaconManager.getInstanceForApplication(this).enableForegroundServiceScanning(builder.build(), 456)
     }
 
     companion object {
-        const val TAG = "BeaconReference"
+        const val TAG = "BeaconWear"
     }
 
     override fun didEnterRegion(region: Region?) {}
