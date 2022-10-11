@@ -80,7 +80,7 @@ class BeaconReferenceApplication: Application(), MonitorNotifier {
         Log.d(TAG, "Starting advertising with UUID: " + beacon.id1 + ", major: " + beacon.id2 + ", minor: " + beacon.id3)
 
         val beaconTransmitter = BeaconTransmitter(applicationContext, beaconParser)
-        beaconTransmitter.advertiseTxPowerLevel = AdvertiseSettings.ADVERTISE_TX_POWER_HIGH
+        beaconTransmitter.advertiseTxPowerLevel = AdvertiseSettings.ADVERTISE_TX_POWER_LOW
         beaconTransmitter.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_BALANCED
         beaconTransmitter.startAdvertising(beacon, object : AdvertiseCallback() {
             override fun onStartFailure(errorCode: Int) {
