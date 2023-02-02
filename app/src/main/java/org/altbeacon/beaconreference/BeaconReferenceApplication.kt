@@ -81,7 +81,7 @@ class BeaconReferenceApplication: Application(), MonitorNotifier {
 
         val beaconTransmitter = BeaconTransmitter(applicationContext, beaconParser)
         beaconTransmitter.advertiseTxPowerLevel = AdvertiseSettings.ADVERTISE_TX_POWER_ULTRA_LOW
-        beaconTransmitter.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_LOW_POWER
+        beaconTransmitter.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_BALANCED
         beaconTransmitter.startAdvertising(beacon, object : AdvertiseCallback() {
             override fun onStartFailure(errorCode: Int) {
                 Log.e(TAG, "Advertisement start failed with code: $errorCode")
